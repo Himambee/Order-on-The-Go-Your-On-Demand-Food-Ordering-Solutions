@@ -1,0 +1,125 @@
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import cors from "cors";
+import bcrypt from "bcrypt";
+import { Admin, Cart, FoodItem, Orders, Restaurant, User } from "./Schema.js";
+
+const app = express();
+
+app.use(express.json());
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
+
+const PORT = 6001;
+
+mongoose
+  .connect("mongodb://localhost:27017/foodDelivery", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema({
+  username: { type: String },
+  password: { type: String },
+  email: { type: String },
+  usertype: { type: String },
+  approval: { type: String }
+});
+
+const adminSchema = new mongoose.Schema({
+  categories: { type: Array },
+  promotedRestaurants: []
+});
+
+const restaurantSchema = new mongoose.Schema({
+  ownerId: { type: String },
+  title: { type: String },
+  address: { type: String },
+  mainImg: { type: String },
+  menu: { type: Array, default: [] }
+});
+
+const foodItemSchema = new mongoose.Schema({
+  title: { type: String },
+  description: { type: String },
+  itemImg: { type: String },
+  category: { type: String }, // veg or non-veg or beverage
+  menuCategory: { type: String },
+  restaurantId: { type: String },
+  price: { type: Number },
+  discount: { type: Number },
+  rating: { type: Number }
+});
+
+const orderSchema = new mongoose.Schema({
+  userId: { type: String },
+  name: { type: String },
+  email: { type: String },
+  mobile: { type: String },
+  address: { type: String },
+  pincode: { type: String },
+  restaurantId: { type: String },
+  restaurantName: { type: String },
+  foodItemId: { type: String },
+  foodItemName: { type: String },
+  foodItemImg: { type: String },
+  quantity: { type: Number },
+  price: { type: Number },
+  discount: { type: Number },
+  paymentMethod: { type: String },
+  orderDate: { type: String },
+  orderStatus: { type: String, default: 'order placed' }
+});
+
+const cartSchema = new mongoose.Schema({
+  userId: { type: String },
+  restaurantId: { type: String },
+  restaurantName: { type: String },
+  foodItemId: { type: String },
+  foodItemName: { type: String },
+  foodItemImg: { type: String },
+  quantity: { type: Number },
+  price: { type: Number },
+  discount: { type: Number }
+});
+
+export const User = mongoose.model('users', userSchema);
+export const Admin = mongoose.model('admin', adminSchema);
+export const Restaurant = mongoose.model('restaurant', restaurantSchema);
+export const FoodItem = mongoose.model('foodItem', foodItemSchema);
+export const Orders = mongoose.model('orders', orderSchema);
+export const Cart = mongoose.model('cart', cartSchema);import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./.env" });
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.listen(3001, () => {
+  console.log("App server is running on port 3001");
+});
+
+const MongoUri = process.env.DRIVER_LINK;
+const connectToMongo = async () => {
+  try {
+    await mongoose.connect(MongoUri);
+    console.log("Connected to your MongoDB database successfully");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+connectToMongo();import express from "express";
+
+const app = express();
+app.use(express.json());
+
+app.listen(3001, () => {
+  console.log("App server is running on port 3001");
+});
