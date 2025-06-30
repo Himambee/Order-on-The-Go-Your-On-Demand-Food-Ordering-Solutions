@@ -1,0 +1,94 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Login from './components/Login';
+import Register from './components/Register';
+
+import Admin from './pages/admin/Admin';
+import AllOrders from './pages/admin/AllOrders';
+import AllProducts from './pages/admin/AllProducts';
+import AllRestaurants from './pages/admin/AllRestaurants';
+import AllUsers from './pages/admin/AllUsers';
+
+import Cart from './pages/customer/Cart';
+import CategoryProducts from './pages/customer/CategoryProducts';
+import IndividualRestaurant from './pages/customer/IndividualRestaurant';
+import Profile from './pages/customer/Profile';
+
+import RestaurantHome from './pages/restaurant/RestaurantHome';
+import RestaurantMenu from './pages/restaurant/RestaurantMenu';
+import RestaurantOrders from './pages/restaurant/RestaurantOrders';
+import NewProduct from './pages/restaurant/NewProduct';
+import EditProduct from './pages/restaurant/EditProduct';
+import Authentication from './pages/restaurant/Authentication';
+
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Admin Pages */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/orders" element={<AllOrders />} />
+        <Route path="/admin/products" element={<AllProducts />} />
+        <Route path="/admin/restaurants" element={<AllRestaurants />} />
+        <Route path="/admin/users" element={<AllUsers />} />
+
+        {/* Customer Pages */}
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/category/:id" element={<CategoryProducts />} />
+        <Route path="/restaurant/:id" element={<IndividualRestaurant />} />
+        <Route path="/profile" element={<Profile />} />
+
+        {/* Restaurant Pages */}
+        <Route path="/restaurant/home" element={<RestaurantHome />} />
+        <Route path="/restaurant/menu" element={<RestaurantMenu />} />
+        <Route path="/restaurant/orders" element={<RestaurantOrders />} />
+        <Route path="/restaurant/new-product" element={<NewProduct />} />
+        <Route path="/restaurant/edit-product/:id" element={<EditProduct />} />
+        <Route path="/restaurant/auth" element={<Authentication />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
+
+export defaullt App;
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+function Navbar() {
+  return (
+    <nav>
+      <h2>Food Ordering System</h2>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/register">Register</Link></li>
+        <li><Link to="/cart">Cart</Link></li>
+      </ul>
+    </nav>
+  );
+}
+
+export default Navbar;
+
+
+import React from 'react';
+
+function Footer() {
+  return (
+    <footer>
+      <p>&copy; 2025 Food Ordering System</p>
+    </footer>
+  );
+}
+
+export default Foother;
